@@ -7,6 +7,9 @@
 #include "GameFramework/PawnMovementComponent.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
+#include "Perception/AISenseConfig_Hearing.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 #include"TimerManager.h"
 #include "Perception/PawnSensingComponent.h"
 #include "../CoopGame.h"
@@ -18,8 +21,8 @@ ASBaseAICharacter::ASBaseAICharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 
-
 	// Provide the capsule from absorbing Hits 
+	RootComponent = GetCapsuleComponent();
 	GetCapsuleComponent()->SetCollisionResponseToChannel(COLLISION_WEAPON, ECR_Ignore);
 
 	//Health Comp (HEALTH, death, ect)
@@ -29,6 +32,7 @@ ASBaseAICharacter::ASBaseAICharacter()
 	SensingComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("AI Perception Component"));
 
 	SightSense = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("AI Perception Sight"));
+	HearingSense= CreateDefaultSubobject<UAISenseConfig_Hearing>(TEXT("AI Perception Hearing"));
 	SensingComponent->ConfigureSense(*SightSense);
 	SensingComponent->SetDominantSense(SightSense->GetSenseImplementation());
 	SensingComponent->OnPerceptionUpdated.AddDynamic(this, &ASBaseAICharacter::SenseStuff);
@@ -42,8 +46,14 @@ ASBaseAICharacter::ASBaseAICharacter()
 	SightSense->DetectionByAffiliation.bDetectFriendlies = false;
 	SensingComponent->ConfigureSense(*SightSense);
 
-
-
+	//Hearing
+	HearingSense->HearingRange = 500;
+	HearingSense->LoSHearingRange = 550;
+	HearingSense->SetMaxAge(5.0f);
+	HearingSense->DetectionByAffiliation.bDetectEnemies = true;
+	HearingSense->DetectionByAffiliation.bDetectFriendlies = false;
+	HearingSense->DetectionByAffiliation.bDetectNeutrals = true;
+	SensingComponent->ConfigureSense(*HearingSense);
 	//Modifier
 	MeleDamage = 25.0f;
 	SprintSpeedModifier = 2.0f;
@@ -74,6 +84,9 @@ void ASBaseAICharacter::Mele_Strike(AActor* Target)
 	bAttacking = true;
 	GetWorld()->GetTimerManager().SetTimer(AttackHandle, this, &ASBaseAICharacter::SetAttacking, 0.2f, false);
 
+	if (MeleStrikeSound) {
+		UGameplayStatics::SpawnSoundAttached(MeleStrikeSound,RootComponent );
+	}
 	/*
 	Test Infructueux 2
 	if (MeleAnim) {

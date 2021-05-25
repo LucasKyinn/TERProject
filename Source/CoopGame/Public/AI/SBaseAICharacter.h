@@ -9,6 +9,8 @@
 class USHealthComponent;
 class UAIPerceptionComponent;
 class UAISenseConfig_Sight;
+class UAISenseConfig_Hearing;
+class USoundCue;
 
 UCLASS()
 class COOPGAME_API ASBaseAICharacter : public ACharacter
@@ -42,6 +44,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly , Category = "Components")
 	UAISenseConfig_Sight* SightSense;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	UAISenseConfig_Hearing* HearingSense;
+	///
+
 	UPROPERTY(EditDefaultsOnly, Category = "Attacking")
 	float MeleDamage;
 
@@ -67,6 +73,8 @@ protected:
 	
 	FTimerHandle AttackHandle;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
+	USoundCue* MeleStrikeSound;
 
 public:	
 	// Called every frame

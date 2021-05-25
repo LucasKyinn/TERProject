@@ -65,7 +65,10 @@ void ASWeapon::Fire()
 
 	if (MyOwner && CurrentAmo > 0 && !(Cast<ASChatacter>(MyOwner)->bDied)) {
 		ASChatacter* Player = Cast<ASChatacter>(MyOwner);
-		UGameplayStatics::SpawnSoundAttached(FireSound, RootComponent);
+		if (FireSound) {
+			UGameplayStatics::SpawnSoundAttached(FireSound, RootComponent);
+		}
+		
 
 		FVector EyesLocation;
 		FRotator EyesRotation;
@@ -147,7 +150,12 @@ void ASWeapon::OnRep_HitScanTrace()
 }
 void ASWeapon::Reloaded()
 {
-	//Todo ::  Remaining Amo
+
+	//Sond
+	if (ReloadingSound) {
+		UGameplayStatics::SpawnSoundAttached(ReloadingSound, RootComponent);
+	}
+	
 	if (AmmoHeld> MagSize) {
 		CurrentAmo = MagSize;
 		AmmoHeld -= MagSize; 

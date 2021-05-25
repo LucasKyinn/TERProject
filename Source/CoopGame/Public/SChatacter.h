@@ -68,7 +68,8 @@ protected:
 	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
 	FName WeaponAttachSocketName;
 
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	class UPawnNoiseEmitterComponent* PlayerNoiseEmitter;
 	
 
 	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Player")

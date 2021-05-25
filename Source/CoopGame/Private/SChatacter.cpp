@@ -9,6 +9,7 @@
 #include "GameFramework/PawnMovementComponent.h"
 #include "SWeapon.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/PawnNoiseEmitterComponent.h"
 #include "../CoopGame.h"
 #include "Components/SHealthComponent.h"
 
@@ -36,6 +37,10 @@ ASChatacter::ASChatacter()
 	ZoomInterpSpeed = 20.0f;
 
 	WeaponAttachSocketName = "WeaponSocket";
+
+	//Noise Emmitter Comp
+	PlayerNoiseEmitter = CreateDefaultSubobject<UPawnNoiseEmitterComponent>(TEXT("Noise Emitter"));
+	PlayerNoiseEmitter->SetAutoActivate(true); //?
 }
 
 // Called when the game starts or when spawned
@@ -107,6 +112,7 @@ void ASChatacter::FoundAmmo(int amount)
 void ASChatacter::StartFire()
 {
 	if (CurrentWeapon && !bIsReloading) {
+		PlayerNoiseEmitter->MakeNoise(this, 1.0f, GetActorLocation());
 		CurrentWeapon->StartFire();
 	}
 }

@@ -98,10 +98,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon", meta=(ClampMin=0.3f))
 	float BulletSpread;
 
-	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
+
+	UPROPERTY(EditDefaultsOnly, Category = "WSounds")
+	USoundCue* ReloadingSound;
+
+	UPROPERTY(EditDefaultsOnly, Category = "WSounds")
 	USoundCue* FireSound;
 
-	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
+	UPROPERTY(EditDefaultsOnly, Category = "WSounds")
 	USoundCue* EmptyMagSound;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")

@@ -8,8 +8,8 @@
 
 class USHealthComponent;
 class UAIPerceptionComponent;
+class UPawnSensingComponent;
 class UAISenseConfig_Sight;
-class UAISenseConfig_Hearing;
 class USoundCue;
 
 UCLASS()
@@ -44,9 +44,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly , Category = "Components")
 	UAISenseConfig_Sight* SightSense;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Components")
-	UAISenseConfig_Hearing* HearingSense;
-	///
+
+	UPROPERTY(VisibleAnywhere, Category = "Compnents")
+	UPawnSensingComponent* PawnSensingComp; //Hearing Stuff is cool
 
 	UPROPERTY(EditDefaultsOnly, Category = "Attacking")
 	float MeleDamage;
@@ -67,14 +67,12 @@ protected:
 	UFUNCTION()
 	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 
-	UFUNCTION()
-	void SenseStuff(const TArray<AActor*>& testActors);
 
-	
 	FTimerHandle AttackHandle;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
 	USoundCue* MeleStrikeSound;
+
 
 public:	
 	// Called every frame

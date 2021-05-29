@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/PawnNoiseEmitterComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "../CoopGame.h"
@@ -42,6 +43,10 @@ ASWeapon::ASWeapon()
 
 	NetUpdateFrequency = 66.0f;
 	MinNetUpdateFrequency = 33.0f;
+
+	//Noise Emmitter Comp
+	PlayerNoiseEmitter = CreateDefaultSubobject<UPawnNoiseEmitterComponent>(TEXT("Noise Emitter"));
+	PlayerNoiseEmitter->SetAutoActivate(true); //?
 }
 
 void ASWeapon::BeginPlay()
@@ -68,7 +73,7 @@ void ASWeapon::Fire()
 		if (FireSound) {
 			UGameplayStatics::SpawnSoundAttached(FireSound, RootComponent);
 		}
-		
+		PlayerNoiseEmitter->MakeNoise(Player, 1.0f, GetActorLocation());
 
 		FVector EyesLocation;
 		FRotator EyesRotation;
@@ -104,9 +109,9 @@ void ASWeapon::Fire()
 
 			UGameplayStatics::ApplyPointDamage(HitActor, ActualDamage, ShotDirection,  Hit, MyOwner->GetInstigatorController(), MyOwner, DamageType);
 			CurrentAmo--;
-			//UE_LOG(LogTemp, Log, TEXT("Ammo = %d"),CurrentAmo);
 			PlayImpactEffects(SurfaceType, Hit.ImpactPoint);
 			TracerEndPoint = Hit.ImpactPoint;
+			PlayerNoiseEmitter->MakeNoise(this, 0.8f, Hit.ImpactPoint);
 			
 		}
 

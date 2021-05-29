@@ -75,6 +75,9 @@ protected:
 
 	virtual void Fire();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	class UPawnNoiseEmitterComponent* PlayerNoiseEmitter;
+
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerFire();
 

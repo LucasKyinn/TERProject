@@ -7,6 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "..\Public\SChatacter.h"
 #include "GameFramework/PawnMovementComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "SWeapon.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/PawnNoiseEmitterComponent.h"
@@ -66,6 +67,7 @@ void ASChatacter::BeginPlay()
 
 void ASChatacter::MoveForward(float Value)
 {
+	PlayerNoiseEmitter->MakeNoise(this, GetCharacterMovement()->MaxWalkSpeed/ 1000, GetActorLocation());
 	AddMovementInput(GetActorForwardVector() * Value);
 }
 
@@ -112,7 +114,6 @@ void ASChatacter::FoundAmmo(int amount)
 void ASChatacter::StartFire()
 {
 	if (CurrentWeapon && !bIsReloading) {
-		PlayerNoiseEmitter->MakeNoise(this, 1.0f, GetActorLocation());
 		CurrentWeapon->StartFire();
 	}
 }

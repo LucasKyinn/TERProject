@@ -48,7 +48,6 @@ void USHealthComponent::HandleTakeAnyDamage(AActor* DamagedActor, float Damage, 
 	}
 	//UpdateHealth
 	Health = FMath::Clamp(Health - Damage, 0.0f, DefaultHealth);
-	UE_LOG(LogTemp, Log, TEXT("Health Changed: %s"), *FString::SanitizeFloat(Health));
 
 	bIsDead = Health <= 0.0f;
 

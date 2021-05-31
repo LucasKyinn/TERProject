@@ -46,7 +46,7 @@ protected:
 
 
 	UPROPERTY(VisibleAnywhere, Category = "Compnents")
-	UPawnSensingComponent* PawnSensingComp; //Hearing Stuff is cool
+	UPawnSensingComponent* PawnSensingComp; //Hearing Stuff 
 
 	UPROPERTY(EditDefaultsOnly, Category = "Attacking")
 	float MeleDamage;
@@ -66,6 +66,8 @@ protected:
 
 	UFUNCTION()
 	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+
+	void SetRagdollPhysics();
 
 
 	FTimerHandle AttackHandle;

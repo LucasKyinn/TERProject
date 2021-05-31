@@ -2,6 +2,7 @@
 
 
 #include "AI/SBaseAICharacter.h"
+#include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SHealthComponent.h"
 #include "GameFramework/PawnMovementComponent.h"
@@ -75,7 +76,7 @@ void ASBaseAICharacter::Mele_Strike(AActor* Target)
 	}
 	*/
 	bAttacking = true;
-	GetWorld()->GetTimerManager().SetTimer(AttackHandle, this, &ASBaseAICharacter::SetAttacking, 0.2f, false);
+	GetWorld()->GetTimerManager().SetTimer(AttackHandle, this, &ASBaseAICharacter::SetAttacking, 1.0f, false);
 
 	if (MeleStrikeSound) {
 		UGameplayStatics::SpawnSoundAttached(MeleStrikeSound,RootComponent );
@@ -109,11 +110,58 @@ void ASBaseAICharacter::OnHealthChanged(USHealthComponent* HealthComp, float Hea
 
 		DetachFromControllerPendingDestroy();
 
-		SetLifeSpan(3.0f);
+
+		//
+		USkeletalMeshComponent* Mesh3P = GetMesh();
+		if (Mesh3P)
+		{
+			Mesh3P->SetCollisionProfileName(TEXT("Ragdoll"));
+		}
+		SetActorEnableCollision(true);
+
+		SetRagdollPhysics();
 
 	}
 }
 
+
+void ASBaseAICharacter::SetRagdollPhysics()
+{
+	bool bInRagdoll = false;
+	USkeletalMeshComponent* Mesh3P = GetMesh();
+
+	if (IsPendingKill())
+	{
+		bInRagdoll = false;
+	}
+	else if (!Mesh3P || !Mesh3P->GetPhysicsAsset())
+	{
+		bInRagdoll = false;
+	}
+	else
+	{
+		Mesh3P->SetAllBodiesSimulatePhysics(true);
+		Mesh3P->SetSimulatePhysics(true);
+		Mesh3P->WakeAllRigidBodies();
+		Mesh3P->bBlendPhysics = true;
+
+		bInRagdoll = true;
+	}
+
+	if (!bInRagdoll)
+	{
+		// Immediately hide the pawn
+		TurnOff();
+		SetActorHiddenInGame(true);
+		SetLifeSpan(1.0f);
+	}
+	else
+	{
+		SetLifeSpan(10.0f);
+	}
+}
+
+//
 
 // Called every frame
 void ASBaseAICharacter::Tick(float DeltaTime)

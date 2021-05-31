@@ -82,10 +82,13 @@ protected:
 	void ReloadEnd(); 
 	void Reload();
 
-	UFUNCTION(BlueprintCallable, Category = "Player")
-	void FoundAmmo(int amount);
+
 
 public:	
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+		void FoundAmmo(int amount);
+
 	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Player")
 	bool bDied;
 	// Called every frame

@@ -7,8 +7,13 @@ I'm working on porting and improving this project to UE5.
 End of year school project from 2021.
 
 **Video :**
+Français avec les explications :
 
-[![image](https://user-images.githubusercontent.com/78411295/210243969-1db0cb73-49f6-4111-93bc-5dd99b5fe0b2.png)](https://youtu.be/otRM-jXEboI)
+[![image](https://user-images.githubusercontent.com/78411295/213878126-9492bd39-f061-4613-9fd3-e3d366e3b6bf.png)
+](https://youtu.be/wQ0BMB47UrY)
+
+[![image](https://user-images.githubusercontent.com/78411295/213880575-c97eef76-aa54-4208-bb67-48d522138668.png)
+](https://youtu.be/DWJ6n91Ic00)
 
 ## Introduction to reinforcement learning
 
@@ -22,6 +27,8 @@ The notions that are important to understand here are the notions of **agent**, 
 The **agent** is an actor inside the environment that has the ability to interact with it through predefined **actions**.
 This agent is constantly in a **state** that is defined by variables that the agent retrieves from the environment, this state will vary according to the actions taken by the agent. 
 Finally, each change in state will result in the attribution of a **reward** to the agent by the environment, these rewards are a way of judging whether the change in state has been beneficial or not for the agent.
+
+[![image](https://user-images.githubusercontent.com/78411295/210243969-1db0cb73-49f6-4111-93bc-5dd99b5fe0b2.png)](https://youtu.be/otRM-jXEboI)
 
 ### The Agent
   A fully Animated German Shepherd from GiM [Animalia - German Shepherd](https://www.unrealengine.com/marketplace/en-US/product/animalia-german-shepherd-m/reviews). 

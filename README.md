@@ -7,6 +7,12 @@ I'm working on porting and improving this project to UE5.
 End of year school project from 2021.
 
 **Video :**
+Français avec les explications :
+
+[![image](https://user-images.githubusercontent.com/78411295/213878126-9492bd39-f061-4613-9fd3-e3d366e3b6bf.png)
+](https://youtu.be/wQ0BMB47UrY)
+
+Demo pur (it's actually pretty bad) :
 
 [![image](https://user-images.githubusercontent.com/78411295/210243969-1db0cb73-49f6-4111-93bc-5dd99b5fe0b2.png)](https://youtu.be/otRM-jXEboI)
 
